@@ -1,0 +1,79 @@
+#version: '3.9'
+services:
+    nginx-proxy:
+        image: jwilder/nginx-proxy
+        ports:
+         - "80:80"
+         - "443:443"
+        volumes:
+          - /var/run/docker.sock:/tmp/docker.sock:ro
+          - ./certs:/etc/nginx/certs:ro
+          - ./vhostd:/etc/nginx/vhost.d
+          - ./html:/usr/share/nginx/html
+        labels:
+          - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
+        networks:
+          - wp_net
+
+    letsencrypt:
+        image: jrcs/letsencrypt-nginx-proxy-companion:v1.13
+        restart: always
+        environment:
+        - NGINX_PROXY_CONTAINER=nginx-proxy
+        volumes:
+          - ./certs:/etc/nginx/certs:rw
+          - ./vhostd:/etc/nginx/vhost.d
+          - ./html:/usr/share/nginx/html
+          - /var/run/docker.sock:/var/run/docker.sock:ro
+        networks:
+          - wp_net
+        
+
+    wordpress:
+        container_name: wp
+        image: wordpress   
+        links:
+         - mariadb:mysql
+         - redis:redis
+        expose:
+         - 80
+        deploy:
+          replicas: 2
+        environment:
+         - WORDPRESS_DB_PASSWORD=qwertyqwerty
+         - WORDPRESS_DB_USER=userwp
+         - WORDPRESS_DB_NAME=wpdb
+         - "VIRTUAL_HOST=seg-inf-proj-docker.eastus.cloudapp.azure.com"
+         - "LETSENCRYPT_HOST=seg-inf-proj-docker.eastus.cloudapp.azure.com"
+         - "LETSENCRYPT_EMAIL=eliecer.aguilar1@utp.ac.pa"
+         - WORDPRESS_REDIS_HOST= 'redis'
+        volumes:
+         - ./web1/html:/var/www/html
+         - ./var/www/html/site/wp-content:/var/www/html/wp-content
+         - ./var/www/html/site/wp-config.php:/var/www/html/wp-config.php
+        networks:
+          - wp_net
+
+    mariadb:
+        image: mariadb
+        environment:
+         - MYSQL_ROOT_PASSWORD=qwerty123456789
+         - MYSQL_DATABASE=wpdb
+         - MYSQL_USER=userwp
+         - MYSQL_PASSWORD=qwertyqwerty
+        volumes:
+         - ./database:/var/lib/mysql
+        networks:
+          - wp_net
+
+    
+    redis:
+        image: redis:7.0.0-alpine
+        volumes:
+          - ./data:/data
+        ports:
+          - 9000:6379
+        networks:
+          - wp_net
+
+
