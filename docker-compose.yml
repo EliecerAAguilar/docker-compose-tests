@@ -37,8 +37,8 @@ services:
          - redis:redis
         expose:
          - 80
-        deploy:
-          replicas: 2
+#        deploy:
+#          replicas: 2
         environment:
          - WORDPRESS_DB_PASSWORD=qwertyqwerty
          - WORDPRESS_DB_USER=userwp
