@@ -90,4 +90,4 @@ services:
         volumes:
           - ./data:/data
         ports:
-          - 9000:6379
+          - 6379:6379
