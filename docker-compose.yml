@@ -54,6 +54,31 @@ services:
         networks:
           - wp_net
 
+    wordpress2:
+        container_name: wp_2
+        image: wordpress   
+        links:
+         - mariadb:mysql
+         - redis:redis
+        expose:
+         - 80
+#        deploy:
+#          replicas: 2
+        environment:
+         - WORDPRESS_DB_PASSWORD=qwertyqwerty
+         - WORDPRESS_DB_USER=userwp
+         - WORDPRESS_DB_NAME=wpdb
+         - "VIRTUAL_HOST=seg-inf-proj-docker.eastus.cloudapp.azure.com"
+         - "LETSENCRYPT_HOST=seg-inf-proj-docker.eastus.cloudapp.azure.com"
+         - "LETSENCRYPT_EMAIL=eliecer.aguilar1@utp.ac.pa"
+         - WORDPRESS_REDIS_HOST= 'redis'
+        volumes:
+         - ./web1/html:/var/www/html
+         - ./var/www/html/site/wp-content:/var/www/html/wp-content
+         - ./var/www/html/site/wp-config.php:/var/www/html/wp-config.php
+        networks:
+          - wp_net
+
     mariadb:
         image: mariadb
         environment:
