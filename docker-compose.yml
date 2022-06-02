@@ -12,8 +12,7 @@ services:
           - ./html:/usr/share/nginx/html
         labels:
           - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
-        networks:
-          - wp_net
+
 
     letsencrypt:
         image: jrcs/letsencrypt-nginx-proxy-companion:v1.13
@@ -25,8 +24,7 @@ services:
           - ./vhostd:/etc/nginx/vhost.d
           - ./html:/usr/share/nginx/html
           - /var/run/docker.sock:/var/run/docker.sock:ro
-        networks:
-          - wp_net
+
         
 
     wordpress:
@@ -51,8 +49,7 @@ services:
          - ./web1/html:/var/www/html
          - ./var/www/html/site/wp-content:/var/www/html/wp-content
          - ./var/www/html/site/wp-config.php:/var/www/html/wp-config.php
-        networks:
-          - wp_net
+
 
     wordpress2:
         container_name: wp_2
@@ -76,8 +73,7 @@ services:
          - ./web1/html:/var/www/html
          - ./var/www/html/site/wp-content:/var/www/html/wp-content
          - ./var/www/html/site/wp-config.php:/var/www/html/wp-config.php
-        networks:
-          - wp_net
+
 
     mariadb:
         image: mariadb
@@ -88,8 +84,7 @@ services:
          - MYSQL_PASSWORD=qwertyqwerty
         volumes:
          - ./database:/var/lib/mysql
-        networks:
-          - wp_net
+
 
     
     redis:
@@ -98,7 +93,6 @@ services:
           - ./data:/data
         ports:
           - 9000:6379
-        networks:
-          - wp_net
+
 
 
