@@ -47,8 +47,8 @@ services:
          - WORDPRESS_REDIS_HOST= 'redis'
         volumes:
          - ./web1/html:/var/www/html
-         - ./var/www/html/site/wp-content:/var/www/html/wp-content
-         - ./var/www/html/site/wp-config.php:/var/www/html/wp-config.php
+         - /var/www/html/site/wp-content:/var/www/html/wp-content
+         - /var/www/html/site/wp-config.php:/var/www/html/wp-config.php
 
 
     wordpress2:
@@ -71,8 +71,8 @@ services:
          - WORDPRESS_REDIS_HOST= 'redis'
         volumes:
          - ./web1/html:/var/www/html
-         - ./var/www/html/site/wp-content:/var/www/html/wp-content
-         - ./var/www/html/site/wp-config.php:/var/www/html/wp-config.php
+         - /var/www/html/site/wp-content:/var/www/html/wp-content
+         - /var/www/html/site/wp-config.php:/var/www/html/wp-config.php
 
 
     mariadb:
@@ -93,6 +93,3 @@ services:
           - ./data:/data
         ports:
           - 9000:6379
-
-
-
