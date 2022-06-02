@@ -39,8 +39,8 @@ services:
          - WORDPRESS_DB_PASSWORD=qwertyqwerty
          - WORDPRESS_DB_USER=userwp
          - WORDPRESS_DB_NAME=wpdb
-         - "VIRTUAL_HOST=seg-inf-proj-docker.eastus.cloudapp.azure.com"
-         - "LETSENCRYPT_HOST=seg-inf-proj-docker.eastus.cloudapp.azure.com"
+         - "VIRTUAL_HOST=seg-inf-proj-docker2.eastus.cloudapp.azure.com"
+         - "LETSENCRYPT_HOST=seg-inf-proj-docker2.eastus.cloudapp.azure.com"
          - "LETSENCRYPT_EMAIL=eliecer.aguilar1@utp.ac.pa"
          - WORDPRESS_REDIS_HOST= 'redis'
         volumes:
@@ -63,8 +63,8 @@ services:
          - WORDPRESS_DB_PASSWORD=qwertyqwerty
          - WORDPRESS_DB_USER=userwp
          - WORDPRESS_DB_NAME=wpdb
-         - "VIRTUAL_HOST=seg-inf-proj-docker.eastus.cloudapp.azure.com"
-         - "LETSENCRYPT_HOST=seg-inf-proj-docker.eastus.cloudapp.azure.com"
+         - "VIRTUAL_HOST=seg-inf-proj-docker2.eastus.cloudapp.azure.com"
+         - "LETSENCRYPT_HOST=seg-inf-proj-docker2.eastus.cloudapp.azure.com"
          - "LETSENCRYPT_EMAIL=eliecer.aguilar1@utp.ac.pa"
          - WORDPRESS_REDIS_HOST= 'redis'
         volumes:
