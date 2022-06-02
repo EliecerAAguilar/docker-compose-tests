@@ -1,4 +1,4 @@
-#version: '3.9'
+version: '3.3'
 services:
     nginx-proxy:
         image: jwilder/nginx-proxy
@@ -23,9 +23,7 @@ services:
           - ./certs:/etc/nginx/certs:rw
           - ./vhostd:/etc/nginx/vhost.d
           - ./html:/usr/share/nginx/html
-          - /var/run/docker.sock:/var/run/docker.sock:ro
-
-        
+          - /var/run/docker.sock:/var/run/docker.sock:ro        
 
     wordpress:
         container_name: wp
